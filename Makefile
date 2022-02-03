@@ -1,5 +1,5 @@
 lint:
-	npx eslint .
+	npx eslint ./src
 
 publish:
 	npm publish --dry-run
