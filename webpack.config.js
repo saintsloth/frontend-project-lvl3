@@ -6,15 +6,21 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const isProd = process.env.NODE_ENV == 'production';
-const isDev = process.env.NODE_ENV == 'development';
+const isProd = process.env.NODE_ENV === 'production';
+const isDev = process.env.NODE_ENV === 'development';
+
+function setDevTool() {  // function to set dev-tool depending on environment
+  if (isDev) return 'inline-source-map';
+  else if (isProd) return 'source-map';
+  else return 'eval-source-map';
+}
 
 const config = {
   entry: {
-    main: './index.js',
+    index: './index.js',
   },
   output: {
-    filename: '[name].[hash].js',
+    filename: isDev ? '[name].js' : '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
@@ -30,11 +36,22 @@ const config = {
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].js',
+      filename: isDev ? '[name].js' : '[name].[hash].js',
     }),
   ],
+  devtool: setDevTool(),
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset',
@@ -47,7 +64,7 @@ const config = {
             hmr: isDev,
             reloadAll: true,
           }
-        } ,'css-loader'],
+        }, 'css-loader'],
       },
     ],
   },
