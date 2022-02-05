@@ -6,9 +6,9 @@ import { localeInstance } from './lang/localeInstanse';
 import rssParser from './rssParser';
 import watchedState from './state/watchedState';
 
-const eventListener = (doc = document) => {
-  const input = doc.getElementById('url-input');
-  const form = doc.getElementById('rss-form');
+const eventListener = () => {
+  const input = document.getElementById('url-input');
+  const form = document.getElementById('rss-form');
   const schema = yup.object({ url: yup.string().url().required() });
   input.addEventListener('input', (e) => {
     watchedState.url = e.target.value;

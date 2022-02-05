@@ -6,7 +6,7 @@ import { initLocales } from './lang/initLocales';
 export default () => {
   window.onload = () => {
     initState();
-    eventListener(document);
+    eventListener();
     initLocales();
     updater();
   };
