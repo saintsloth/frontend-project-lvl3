@@ -4,10 +4,10 @@ import updater from './updater';
 import { initLocales } from './lang/initLocales';
 
 export default () => {
-  window.onload = () => {
+  window.addEventListener('load', () => {
     initState();
     eventListener();
     initLocales();
     updater();
-  };
+  });
 };
