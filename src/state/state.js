@@ -5,6 +5,6 @@ export const state = {
   },
 };
 
-export const initState = () => {
-  Object.assign(state, state.stateDefaultValues);
-};
+const initState = () => Object.assign(state, state.stateDefaultValues);
+
+export default initState;
