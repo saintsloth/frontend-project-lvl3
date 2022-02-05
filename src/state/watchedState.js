@@ -3,8 +3,8 @@ import * as yup from 'yup';
 import changeLang from '../lang/switchLang';
 import { state } from './state';
 
-const input = document.getElementById('url-input');
 const schema = yup.object({ url: yup.string().url().required() });
+const input = document.getElementById('url-input');
 
 const watchedState = onChange(state, (path, value) => {
   if (path === 'lang') changeLang(value);
