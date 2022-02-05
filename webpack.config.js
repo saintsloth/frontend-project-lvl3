@@ -32,6 +32,7 @@ const config = {
       template: 'index.html',
       minify: {
         collapseWhitespace: isProd,
+        scriptLoading: 'blocking | defer'
       }
     }),
     new CleanWebpackPlugin(),
