@@ -5,6 +5,6 @@ import eventListener from './src/eventListener';
 import initState from './src/state/state.js';
 
 initState();
-eventListener();
+eventListener(document);
 initLocales();
 updater();
