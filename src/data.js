@@ -7,8 +7,8 @@ const data = {
   posts: [],
 };
 
-const postContainer = document.querySelector('.posts');
 const feedsContainer = document.querySelector('.feeds');
+const postContainer = document.querySelector('.posts');
 const footer = document.querySelector('footer');
 
 const fadeBody = () => {
