@@ -7,7 +7,7 @@ const feedback = {
 
 const feedbackNode = document.querySelector('.feedback');
 
-export const watchedFeedback = onChange(feedback, (path, value) => {
+const watchedFeedback = onChange(feedback, (path, value) => {
   switch (path) {
     case 'text': {
       feedbackNode.textContent = value;
@@ -28,3 +28,5 @@ export const watchedFeedback = onChange(feedback, (path, value) => {
       throw new Error('Unknown feedback change');
   }
 });
+
+export default watchedFeedback;

@@ -1,4 +1,6 @@
 import onChange from 'on-change';
+import _ from 'lodash';
+import { localeInstance } from './lang/localeInstanse';
 
 const data = {
   feeds: [],
@@ -79,15 +81,13 @@ const createModal = (title, link, description) => {
   modalA.setAttribute('role', 'button');
   modalA.setAttribute('target', '_blank');
   modalA.setAttribute('rel', 'noopener noreferrer');
-  // TODO 118n
-  modalA.text = 'Читать полностью';
+  modalA.text = localeInstance.t('readAll');
   modalFooter.append(modalA);
   const modalButton = document.createElement('button');
   modalButton.classList.add('btn', 'btn-secondary');
   modalButton.setAttribute('type', 'button');
   modalButton.setAttribute('data-bs-dismiss', 'modal');
-  // TODO 118n
-  modalButton.textContent = 'Закрыть';
+  modalButton.textContent = localeInstance.t('close');
   modalFooter.append(modalButton);
 
   modalButton.addEventListener('click', modalCloseHandler);
@@ -97,11 +97,12 @@ const createModal = (title, link, description) => {
   return modalFadeShow;
 };
 
-const createPostEl = (title, link, description) => {
+const createPostEl = (title, link, description, viewed) => {
   const li = document.createElement('li');
   li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
   const a = document.createElement('a');
-  a.classList.add('fw-bold');
+  if (viewed) a.classList.add('fw-normal', 'link-secondary');
+  else a.classList.add('fw-bold');
   a.setAttribute('href', 'URL');
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
@@ -113,10 +114,12 @@ const createPostEl = (title, link, description) => {
   button.setAttribute('type', 'button');
   button.setAttribute('data-bs-toggle', 'modal');
   button.setAttribute('data-bs-target', 'modal');
-  // TODO 118n
-  button.textContent = 'Просмотр';
-  button.addEventListener('click', () => {
+  button.textContent = localeInstance.t('view');
+  button.addEventListener('click', (e) => {
     fadeBody();
+    e.target.previousElementSibling.classList.remove('fw-bold');
+    e.target.previousElementSibling.classList.add('fw-normal', 'link-secondary');
+    _.find(data.posts, (post) => post.title === title).viewed = true;
     const body = document.querySelector('body');
     const modal = createModal(title, link, description);
     body.prepend(modal);
@@ -158,7 +161,7 @@ const createUL = () => {
   return ul;
 };
 
-export const watchedData = onChange(data, (path) => {
+const watchedData = onChange(data, (path) => {
   switch (path) {
     case 'feeds': {
       if (document.querySelector('.feeds *')) {
@@ -166,7 +169,7 @@ export const watchedData = onChange(data, (path) => {
         feedsUL.innerHTML = '';
         data.feeds.forEach((feed) => feedsUL.append(createFeedEl(feed.title, feed.description)));
       } else {
-        const feedsCard = createCard('Фиды'); //TODO
+        const feedsCard = createCard(localeInstance.t('feeds'));
         const feedsUL = createUL();
         feedsContainer.append(feedsCard);
         feedsCard.append(feedsUL);
@@ -180,9 +183,14 @@ export const watchedData = onChange(data, (path) => {
         postsUL.innerHTML = '';
         data.posts
           .sort((first, second) => ((first.date > second.date) ? 1 : -1))
-          .forEach((post) => postsUL.append(createPostEl(post.title, post.link, post.description)));
+          .forEach((post) => postsUL.append(createPostEl(
+            post.title,
+            post.link,
+            post.description,
+            post.viewed,
+          )));
       } else {
-        const postsCard = createCard('Посты'); //TODO
+        const postsCard = createCard(localeInstance.t('posts'));
         const postsUL = createUL();
         postsCard.append(postsUL);
         postContainer.append(postsCard);
@@ -193,3 +201,5 @@ export const watchedData = onChange(data, (path) => {
     }
   }
 });
+
+export default watchedData;
