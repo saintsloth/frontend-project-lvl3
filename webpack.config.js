@@ -30,9 +30,11 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
+      inject: 'body',
+      scriptLoading: 'defer',
       minify: {
         collapseWhitespace: isProd,
-        scriptLoading: 'blocking | defer'
+
       }
     }),
     new CleanWebpackPlugin(),
