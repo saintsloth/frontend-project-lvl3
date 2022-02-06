@@ -4,10 +4,15 @@ import updater from './updater';
 import { initLocales } from './lang/initLocales';
 
 export default () => {
-  initState();
-  eventListener();
-  initLocales();
-  updater();
+  const predicate = true;
+  if (predicate) {
+    initState();
+    window.addEventListener('load', () => {
+      eventListener();
+      initLocales();
+      updater();
+    });
+  }
 };
 
 // export default () => {
