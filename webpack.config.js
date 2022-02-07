@@ -34,7 +34,6 @@ const config = {
       scriptLoading: 'defer',
       minify: {
         collapseWhitespace: isProd,
-
       }
     }),
     new CleanWebpackPlugin(),

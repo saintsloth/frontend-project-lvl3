@@ -6,8 +6,6 @@ import { localeInstance } from './lang/localeInstanse';
 import rssParser from './rssParser';
 import watchedState from './state/watchedState';
 
-
-
 const eventListener = () => {
   const input = document.getElementById('url-input');
   const form = document.getElementById('rss-form');
