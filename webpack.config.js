@@ -17,7 +17,7 @@ function setDevTool() {  // function to set dev-tool depending on environment
 
 const config = {
   entry: {
-    index: './index.js',
+    index: ['babel-polyfill', './index.js'],
   },
   output: {
     filename: isDev ? '[name].js' : '[name].[hash].js',
@@ -45,7 +45,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/i,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

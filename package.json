@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "My webpack project",
   "main": "index.js",
-  "type": "module",
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/",
+    "testEnvironment": "jsdom"
+  },
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
     "build": "webpack --mode=production --node-env=production",
@@ -21,9 +25,8 @@
   "bugs": {
     "url": "https://github.com/saintsloth/frontend-project-lvl3/issues"
   },
-  "homepage": "https://github.com/saintsloth/frontend-project-lvl3#readme",
+  "homepage": "https://github.com/saintsloth/frontend-project-lvl3.git#readme",
   "dependencies": {
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
     "bootstrap": "^5.1.3",
     "i18next": "^21.6.10",
@@ -33,14 +36,21 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@testing-library/user-event": "^13.5.0",
     "@babel/core": "^7.17.0",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
+    "@jest/globals": "^27.5.0",
     "@testing-library/dom": "^8.11.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@webpack-cli/generators": "^1.1.0",
+    "@webpack-cli/init": "^1.1.3",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^27.4.6",
     "babel-loader": "^8.2.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.6.0",
@@ -50,6 +60,9 @@
     "eslint-plugin-import": "^2.25.4",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.5.0",
+    "jest-circus": "^27.5.0",
+    "jest-cli": "^27.5.0",
     "mini-css-extract-plugin": "^2.5.3",
     "prettier": "^2.5.1",
     "read-package-json-fast": "^2.0.3",
