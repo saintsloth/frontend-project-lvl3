@@ -1,9 +1,11 @@
 import onChange from 'on-change';
 
-const feedback = {
+const feedbackDefaultValues = {
   text: '',
   color: '',
 };
+
+const feedback = JSON.parse(JSON.stringify(feedbackDefaultValues));
 
 const watchedFeedback = onChange(feedback, (path, value) => {
   const feedbackNode = document.querySelector('.feedback');
