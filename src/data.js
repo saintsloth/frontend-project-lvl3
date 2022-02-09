@@ -7,6 +7,15 @@ const data = {
   posts: [],
 };
 
+const dataDefaultValues = {
+  feeds: [],
+  posts: [],
+};
+
+export const initData = () => {
+  Object.assign(data, dataDefaultValues)
+}
+
 const fadeBody = () => {
   const body = document.querySelector('body');
   body.classList.add('modal-open');

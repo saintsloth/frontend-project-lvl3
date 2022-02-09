@@ -1,9 +1,9 @@
 import onChange from 'on-change';
 import * as yup from 'yup';
 import changeLang from '../lang/switchLang';
-import getState from './state';
+import { state } from './state';
 
-const watchedState = onChange(getState(), (path, value) => {
+const watchedState = onChange(state, (path, value) => {
   if (path === 'lang') changeLang(value);
 
   const schema = yup.object({ url: yup.string().url().required() });
