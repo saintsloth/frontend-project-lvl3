@@ -1,13 +1,13 @@
 import onChange from 'on-change';
 import * as yup from 'yup';
 import changeLang from '../lang/switchLang';
-import state from './state';
+import getState from './state';
 
-const watchedState = onChange(state, (path, value) => {
+const getWatchedState = (state = getState()) => onChange(state, (path, value) => {
   if (path === 'lang') changeLang(value);
 
   const schema = yup.object({ url: yup.string().url().required() });
-  schema.isValid(watchedState).then((isValid) => {
+  schema.isValid(state).then((isValid) => {
     const input = document.getElementById('url-input');
     if (isValid) {
       input.classList.remove('is-invalid');
@@ -19,4 +19,4 @@ const watchedState = onChange(state, (path, value) => {
   });
 });
 
-export default watchedState;
+export default getWatchedState;

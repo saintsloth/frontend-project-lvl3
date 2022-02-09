@@ -1,13 +1,11 @@
 import onChange from 'on-change';
 
-const feedbackDefaultValues = {
+const feedbackDV = {
   text: '',
   color: '',
 };
 
-const feedback = JSON.parse(JSON.stringify(feedbackDefaultValues));
-
-const watchedFeedback = onChange(feedback, (path, value) => {
+const getWatchedFeedback = () => onChange(JSON.parse(JSON.stringify(feedbackDV)), (path, value) => {
   const feedbackNode = document.querySelector('.feedback');
   switch (path) {
     case 'text': {
@@ -30,4 +28,4 @@ const watchedFeedback = onChange(feedback, (path, value) => {
   }
 });
 
-export default watchedFeedback;
+export default getWatchedFeedback;

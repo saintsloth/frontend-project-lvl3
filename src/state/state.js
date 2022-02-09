@@ -3,6 +3,6 @@ const stateDefaultValues = {
   lang: 'ru',
 };
 
-const state = JSON.parse(JSON.stringify(stateDefaultValues));
+const getState = () => JSON.parse(JSON.stringify(stateDefaultValues));
 
-export default state;
+export default getState;
