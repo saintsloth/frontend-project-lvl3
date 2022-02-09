@@ -12,13 +12,4 @@ const initAll = () => {
   updater();
 };
 
-export default initAll();
-
-// export default () => {
-//   window.addEventListener('load', () => {
-//     initState();
-//     eventListener();
-//     initLocales();
-//     updater();
-//   });
-// };
+export default initAll;
