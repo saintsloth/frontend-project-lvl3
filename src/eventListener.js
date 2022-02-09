@@ -29,6 +29,7 @@ const eventListener = () => {
         if (_.find(watchedData.feeds, (feed) => feed.link === url)) {
           watchedFeedback.text = localeInstance.t('rssExist');
           watchedFeedback.color = 'red';
+          buttonUnBlock();
         } else {
           rssParser(url)
             .then(({ feed, posts }) => {
