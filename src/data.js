@@ -2,7 +2,7 @@ import onChange from 'on-change';
 import _ from 'lodash';
 import { localeInstance } from './lang/localeInstanse';
 
-const data = {
+let data = {
   feeds: [],
   posts: [],
 };
@@ -13,8 +13,9 @@ const dataDefaultValues = {
 };
 
 export const initData = () => {
-  Object.assign(data, dataDefaultValues)
-}
+  data = {};
+  Object.assign(data, dataDefaultValues);
+};
 
 const fadeBody = () => {
   const body = document.querySelector('body');
