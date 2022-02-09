@@ -36,9 +36,11 @@ const eventListener = () => {
             .then(() => {
               watchedFeedback.text = localeInstance.t('rssSuccess');
               watchedFeedback.color = 'green';
+              form.reset();
+              input.focus();
             })
             .catch(() => {
-              watchedFeedback.text = localeInstance.t('rssValidUrlNo');
+              watchedFeedback.text = `${localeInstance.t('rssValidUrlNo')} url: ${url}`;
               watchedFeedback.color = 'red';
             });
         }
