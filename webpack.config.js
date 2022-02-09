@@ -9,10 +9,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = process.env.NODE_ENV === 'development';
 
-function setDevTool() {  // function to set dev-tool depending on environment
+function setDevTool() {
   if (isDev) return 'inline-source-map';
-  else if (isProd) return 'source-map';
-  else return 'eval-source-map';
+  if (isProd) return 'source-map';
+  return 'eval-source-map';
 }
 
 const config = {
@@ -34,7 +34,7 @@ const config = {
       scriptLoading: 'defer',
       minify: {
         collapseWhitespace: isProd,
-      }
+      },
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
@@ -65,7 +65,7 @@ const config = {
           options: {
             hmr: isDev,
             reloadAll: true,
-          }
+          },
         }, 'css-loader'],
       },
     ],
