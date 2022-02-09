@@ -2,20 +2,12 @@ import onChange from 'on-change';
 import _ from 'lodash';
 import { localeInstance } from './lang/localeInstanse';
 
-let data = {
-  feeds: [],
-  posts: [],
-};
-
 const dataDefaultValues = {
   feeds: [],
   posts: [],
 };
 
-export const initData = () => {
-  data = {};
-  Object.assign(data, dataDefaultValues);
-};
+export const initData = () => JSON.parse(JSON.stringify(dataDefaultValues));
 
 const fadeBody = () => {
   const body = document.querySelector('body');
@@ -104,7 +96,7 @@ const createModal = (title, link, description) => {
   return modalFadeShow;
 };
 
-const createPostEl = (title, link, description, viewed) => {
+const createPostEl = (data, title, link, description, viewed) => {
   const li = document.createElement('li');
   li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
   const a = document.createElement('a');
@@ -135,7 +127,7 @@ const createPostEl = (title, link, description, viewed) => {
   return li;
 };
 
-const createFeedEl = (title, description) => {
+const createFeedEl = (data, title, description) => {
   const li = document.createElement('li');
   li.classList.add('list-group-item', 'border-0', 'border-end-0');
   const h3 = document.createElement('h3');
@@ -168,20 +160,28 @@ const createUL = () => {
   return ul;
 };
 
-const watchedData = onChange(data, (path) => {
+const watchedData = onChange(initData(), (path) => {
   switch (path) {
     case 'feeds': {
       if (document.querySelector('.feeds *')) {
         const feedsUL = document.querySelector('.feeds .list-group');
         feedsUL.innerHTML = '';
-        data.feeds.forEach((feed) => feedsUL.append(createFeedEl(feed.title, feed.description)));
+        JSON.parse(JSON.stringify(watchedData)).feeds.forEach((feed) => feedsUL.append(createFeedEl(
+          watchedData,
+          feed.title,
+          feed.description,
+        )));
       } else {
         const feedsCard = createCard(localeInstance.t('feeds'));
         const feedsUL = createUL();
         const feedsContainer = document.querySelector('.feeds');
         feedsContainer.append(feedsCard);
         feedsCard.append(feedsUL);
-        data.feeds.forEach((feed) => feedsUL.append(createFeedEl(feed.title, feed.description)));
+        JSON.parse(JSON.stringify(watchedData)).feeds.forEach((feed) => feedsUL.append(createFeedEl(
+          watchedData,
+          feed.title,
+          feed.description,
+        )));
       }
       break;
     }
@@ -189,9 +189,10 @@ const watchedData = onChange(data, (path) => {
       if (document.querySelector('.posts *')) {
         const postsUL = document.querySelector('.posts .list-group');
         postsUL.innerHTML = '';
-        data.posts
+        JSON.parse(JSON.stringify(watchedData)).posts
           .sort((first, second) => ((first.date > second.date) ? 1 : -1))
           .forEach((post) => postsUL.append(createPostEl(
+            watchedData,
             post.title,
             post.link,
             post.description,
@@ -203,9 +204,14 @@ const watchedData = onChange(data, (path) => {
         postsCard.append(postsUL);
         const postContainer = document.querySelector('.posts');
         postContainer.append(postsCard);
-        data.posts
+        JSON.parse(JSON.stringify(watchedData)).posts
           .sort((first, second) => ((first.date > second.date) ? 1 : -1))
-          .forEach((post) => postsUL.append(createPostEl(post.title, post.link, post.description)));
+          .forEach((post) => postsUL.append(createPostEl(
+            watchedData,
+            post.title,
+            post.link,
+            post.description,
+          )));
       }
     }
   }
