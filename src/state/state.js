@@ -1,8 +1,8 @@
-export const state = {};
-
 const stateDefaultValues = {
   url: '',
   lang: 'ru',
 };
 
-export const initState = () => Object.assign(state, stateDefaultValues);
+const state = JSON.parse(JSON.stringify(stateDefaultValues));
+
+export default state;

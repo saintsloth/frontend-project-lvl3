@@ -1,7 +1,7 @@
 import onChange from 'on-change';
 import * as yup from 'yup';
 import changeLang from '../lang/switchLang';
-import { state } from './state';
+import state from './state';
 
 const watchedState = onChange(state, (path, value) => {
   if (path === 'lang') changeLang(value);
