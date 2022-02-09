@@ -6,7 +6,6 @@ const initAll = () => {
   eventListener();
   initLocales();
   updater();
-
 };
 
 export default initAll;

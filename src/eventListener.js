@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import _ from 'lodash';
-import watchedData from './data';
+import getWatchedData from './data';
 import watchedFeedback from './feedback';
 import { localeInstance } from './lang/localeInstanse';
 import rssParser from './rssParser';
@@ -15,6 +15,7 @@ const eventListener = () => {
   });
 
   form.addEventListener('submit', (e) => {
+    const watchedData = getWatchedData();
     e.preventDefault();
     const formData = new FormData(e.target);
     const url = formData.get('url');

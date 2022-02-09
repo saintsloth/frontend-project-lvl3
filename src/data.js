@@ -160,14 +160,14 @@ const createUL = () => {
   return ul;
 };
 
-const watchedData = onChange(initData(), (path) => {
+const getWatchedData = (data = initData()) => onChange(data, (path) => {
   switch (path) {
     case 'feeds': {
       if (document.querySelector('.feeds *')) {
         const feedsUL = document.querySelector('.feeds .list-group');
         feedsUL.innerHTML = '';
-        JSON.parse(JSON.stringify(watchedData)).feeds.forEach((feed) => feedsUL.append(createFeedEl(
-          watchedData,
+        JSON.parse(JSON.stringify(data)).feeds.forEach((feed) => feedsUL.append(createFeedEl(
+          data,
           feed.title,
           feed.description,
         )));
@@ -177,8 +177,8 @@ const watchedData = onChange(initData(), (path) => {
         const feedsContainer = document.querySelector('.feeds');
         feedsContainer.append(feedsCard);
         feedsCard.append(feedsUL);
-        JSON.parse(JSON.stringify(watchedData)).feeds.forEach((feed) => feedsUL.append(createFeedEl(
-          watchedData,
+        JSON.parse(JSON.stringify(data)).feeds.forEach((feed) => feedsUL.append(createFeedEl(
+          data,
           feed.title,
           feed.description,
         )));
@@ -189,10 +189,10 @@ const watchedData = onChange(initData(), (path) => {
       if (document.querySelector('.posts *')) {
         const postsUL = document.querySelector('.posts .list-group');
         postsUL.innerHTML = '';
-        JSON.parse(JSON.stringify(watchedData)).posts
+        JSON.parse(JSON.stringify(data)).posts
           .sort((first, second) => ((first.date > second.date) ? 1 : -1))
           .forEach((post) => postsUL.append(createPostEl(
-            watchedData,
+            data,
             post.title,
             post.link,
             post.description,
@@ -204,10 +204,10 @@ const watchedData = onChange(initData(), (path) => {
         postsCard.append(postsUL);
         const postContainer = document.querySelector('.posts');
         postContainer.append(postsCard);
-        JSON.parse(JSON.stringify(watchedData)).posts
+        JSON.parse(JSON.stringify(data)).posts
           .sort((first, second) => ((first.date > second.date) ? 1 : -1))
           .forEach((post) => postsUL.append(createPostEl(
-            watchedData,
+            data,
             post.title,
             post.link,
             post.description,
@@ -217,4 +217,4 @@ const watchedData = onChange(initData(), (path) => {
   }
 });
 
-export default watchedData;
+export default getWatchedData;
