@@ -34,16 +34,16 @@ const rssParser = (url, idOld) => axios.get(`${proxy}${encodeURIComponent(url)}`
         viewed,
       };
     });
-    if (posts.length > 1) {
-      posts.push({
-        feedID: id,
-        title: 'Агрегация \/ Python: Деревья',
-        link: 'https://ru.hexlet.io/',
-        description: 'Цель: Научиться извлекать из дерева необходимые данные',
-        date: 10000,
-        viewed: false,
-      });
-    }
+    // if (posts.length > 1) {
+    //   posts.push({
+    //     feedID: id,
+    //     title: 'Агрегация \/ Python: Деревья',
+    //     link: 'https://ru.hexlet.io/',
+    //     description: 'Цель: Научиться извлекать из дерева необходимые данные',
+    //     date: 10000,
+    //     viewed: false,
+    //   });
+    // }
     return { feed, posts };
   });
 

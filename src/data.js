@@ -190,7 +190,7 @@ const getWatchedData = (data = initData()) => onChange(data, (path) => {
         const postsUL = document.querySelector('.posts .list-group');
         postsUL.innerHTML = '';
         JSON.parse(JSON.stringify(data)).posts
-          .sort((first, second) => ((first.date > second.date) ? 1 : -1))
+          .sort((first, second) => ((first.date > second.date) ? -1 : 1))
           .forEach((post) => postsUL.append(createPostEl(
             data,
             post.title,
@@ -205,7 +205,7 @@ const getWatchedData = (data = initData()) => onChange(data, (path) => {
         const postContainer = document.querySelector('.posts');
         postContainer.append(postsCard);
         JSON.parse(JSON.stringify(data)).posts
-          .sort((first, second) => ((first.date > second.date) ? 1 : -1))
+          .sort((first, second) => ((first.date > second.date) ? -1 : 1))
           .forEach((post) => postsUL.append(createPostEl(
             data,
             post.title,
