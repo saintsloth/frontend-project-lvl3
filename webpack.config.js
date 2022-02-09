@@ -17,7 +17,7 @@ function setDevTool() {  // function to set dev-tool depending on environment
 
 const config = {
   entry: {
-    index: ['babel-polyfill', './src/webpackInitAll.js'],
+    index: ['babel-polyfill', './index.js'],
   },
   output: {
     filename: isDev ? '[name].js' : '[name].[hash].js',
