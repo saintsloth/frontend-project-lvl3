@@ -35,6 +35,7 @@ const eventListener = () => {
             .then(({ feed, posts }) => {
               watchedData.feeds.push(feed);
               watchedData.posts.push(...posts);
+              buttonUnBlock();
             })
             .then(() => {
               watchedFeedback.text = localeInstance.t('rssSuccess');
