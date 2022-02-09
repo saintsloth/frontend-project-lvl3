@@ -1,7 +1,6 @@
-import { state } from '../state/state';
 import locale from './localeInstanse';
 
-export const switchLang = (lang = state.stateDefaultValues.lang) => {
+export const switchLang = (lang = 'ru') => {
   const h1 = document.querySelector('h1');
   const lead = document.querySelector('.lead');
   const inputLabel = document.querySelector('label[for=url-input]');
