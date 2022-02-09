@@ -3,12 +3,12 @@ import * as yup from 'yup';
 import changeLang from '../lang/switchLang';
 import { state } from './state';
 
-const schema = yup.object({ url: yup.string().url().required() });
-const input = document.getElementById('url-input');
-
 const watchedState = onChange(state, (path, value) => {
   if (path === 'lang') changeLang(value);
+
+  const schema = yup.object({ url: yup.string().url().required() });
   schema.isValid(state).then((isValid) => {
+    const input = document.getElementById('url-input');
     if (isValid) {
       input.classList.remove('is-invalid');
       input.classList.add('is-valid');
