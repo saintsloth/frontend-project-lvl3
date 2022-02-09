@@ -5,9 +5,8 @@ const feedback = {
   color: '',
 };
 
-const feedbackNode = document.querySelector('.feedback');
-
 const watchedFeedback = onChange(feedback, (path, value) => {
+  const feedbackNode = document.querySelector('.feedback');
   switch (path) {
     case 'text': {
       feedbackNode.textContent = value;

@@ -7,16 +7,13 @@ const data = {
   posts: [],
 };
 
-const feedsContainer = document.querySelector('.feeds');
-const postContainer = document.querySelector('.posts');
-const footer = document.querySelector('footer');
-
 const fadeBody = () => {
   const body = document.querySelector('body');
   body.classList.add('modal-open');
   body.setAttribute('style', 'overflow: hidden; padding-right: 0px;');
   const fade = document.createElement('div');
   fade.classList.add('modal-backdrop', 'fade', 'show');
+  const footer = document.querySelector('footer');
   footer.append(fade);
 };
 
@@ -171,6 +168,7 @@ const watchedData = onChange(data, (path) => {
       } else {
         const feedsCard = createCard(localeInstance.t('feeds'));
         const feedsUL = createUL();
+        const feedsContainer = document.querySelector('.feeds');
         feedsContainer.append(feedsCard);
         feedsCard.append(feedsUL);
         data.feeds.forEach((feed) => feedsUL.append(createFeedEl(feed.title, feed.description)));
@@ -193,6 +191,7 @@ const watchedData = onChange(data, (path) => {
         const postsCard = createCard(localeInstance.t('posts'));
         const postsUL = createUL();
         postsCard.append(postsUL);
+        const postContainer = document.querySelector('.posts');
         postContainer.append(postsCard);
         data.posts
           .sort((first, second) => ((first.date > second.date) ? 1 : -1))
