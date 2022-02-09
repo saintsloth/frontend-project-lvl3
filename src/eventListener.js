@@ -5,6 +5,7 @@ import getWatchedFeedback from './feedback';
 import { localeInstance } from './lang/localeInstanse';
 import rssParser from './rssParser';
 import getWatchedState from './state/watchedState';
+import { buttonBlock, buttonUnBlock } from './button';
 
 const eventListener = () => {
   const input = document.getElementById('url-input');
@@ -24,6 +25,7 @@ const eventListener = () => {
     const url = formData.get('url');
     schema.isValid({ url }).then((isValid) => {
       if (isValid) {
+        buttonBlock();
         if (_.find(watchedData.feeds, (feed) => feed.link === url)) {
           watchedFeedback.text = localeInstance.t('rssExist');
           watchedFeedback.color = 'red';
@@ -39,9 +41,17 @@ const eventListener = () => {
               form.reset();
               input.focus();
             })
-            .catch(() => {
-              watchedFeedback.text = `${localeInstance.t('rssValidUrlNo')} url: ${url}`;
-              watchedFeedback.color = 'red';
+            .catch((error) => {
+              if (error.message === 'Network Error') {
+                watchedFeedback.text = localeInstance.t('rssNetworkError');
+                watchedFeedback.color = 'red';
+              } else {
+                watchedFeedback.text = `${localeInstance.t('rssValidUrlNo')} url: ${url}`;
+                watchedFeedback.color = 'red';
+              }
+            })
+            .then(() => {
+              buttonUnBlock();
             });
         }
       } else {
@@ -50,6 +60,7 @@ const eventListener = () => {
       }
     });
   });
+  return watchedData;
 };
 
 export default eventListener;

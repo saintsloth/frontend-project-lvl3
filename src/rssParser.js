@@ -1,7 +1,5 @@
 import axios from 'axios';
 import _ from 'lodash';
-import watchedFeedback from './feedback';
-import { localeInstance } from './lang/localeInstanse';
 
 const proxy = 'https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=';
 
@@ -37,10 +35,6 @@ const rssParser = (url, idOld) => axios.get(`${proxy}${encodeURIComponent(url)}`
       };
     });
     return { feed, posts };
-  })
-  .catch(() => {
-    watchedFeedback.text = localeInstance.t('rssNetworkError');
-    watchedFeedback.color = 'red';
   });
 
 export default rssParser;

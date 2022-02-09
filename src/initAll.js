@@ -3,9 +3,9 @@ import updater from './updater';
 import { initLocales } from './lang/initLocales';
 
 const initAll = () => {
-  eventListener();
+  const data = eventListener();
   initLocales();
-  updater();
+  updater(data);
 };
 
 export default initAll;
